@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My First Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0073e6;
+      color: white;
+      padding: 40px 0;
+    }
+    main section {
+      padding: 20px;
+    }
+    footer {
+      background: #222;
+      color: #aaa;
+      padding: 20px 0;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Website</h1>
+    <p>Thank you for visiting! You can support me by making a donation below:</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>About Me</h2>
+      <p>This is where you describe who you are or what your website is about.</p>
+    </section>
+
+    <section>
+      <h2>Donate</h2>
+      <div id="paypal-button-container"></div>
+    </section>
+
+    <section>
+      <h2>Latest Posts</h2>
+      <p>Coming soon...</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 My Website | All Rights Reserved</p>
+  </footer>
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=BAAK3c_QtF-lf18Guwf2yo59ECMJJELe40_Wcwsgvh0AoffxX2QVVXi5ZlM34vFPGseSGzx6e8Kcs-qQZw&currency=USD"></script>
+
+  <!-- PayPal Button Initialization -->
+  <script>
+    window.onload = function() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+          var amount = prompt("Enter the amount you want to donate (USD):");
+          if (!amount || isNaN(amount) || Number(amount) <= 0) {
+            alert("Invalid amount. Please enter a positive number.");
+            return;
+          }
+          return actions.order.create({
+            purchase_units: [{
+              amount: { value: amount },
+              description: "Support for my website"
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Thank you, ' + details.payer.name.given_name + '! Your payment has been received.');
+          });
+        }
+      }).render('#paypal-button-container');
+    };
+  </script>
+</body>
+</html>
+
+MIT License
+
+Copyright (c) 2025 Your Name
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #0073e6;
+  color: white;
+  padding: 40px 0;
+}
+
+footer {
+  background: #222;
+  color: #aaa;
+  padding: 20px 0;
+  margin-top: 30px;
+}
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Windows system files
+Thumbs.db
+
+# Ignore any log files
+*.log
+
+# Ignore node_modules folder if you ever use Node.js (optional)
+node_modules/
