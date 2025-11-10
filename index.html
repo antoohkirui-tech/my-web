@@ -1,94 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My First Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
       color: #333;
+    }
+    header, footer {
       text-align: center;
-      margin: 0;
-      padding: 0;
+      margin-bottom: 30px;
     }
-    header {
-      background: #0073e6;
-      color: white;
-      padding: 40px 0;
+    h1, h2 {
+      color: #0073e6;
     }
-    main section {
-      padding: 20px;
-    }
-    footer {
-      background: #222;
-      color: #aaa;
-      padding: 20px 0;
-      margin-top: 30px;
+    section {
+      margin-bottom: 40px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Website</h1>
-    <p>Thank you for visiting! You can support me by making a donation below:</p>
-  </header>
 
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>This is where you describe who you are or what your website is about.</p>
-    </section>
+<header>
+  <h1>Welcome to My Website</h1>
+  <p>Thank you for visiting! You can support me by making a donation below:</p>
+</header>
 
-    <section>
-      <h2>Donate</h2>
-      <div id="paypal-button-container"></div>
-    </section>
+<main>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>This is where you describe who you are or what your website is about.</p>
+  </section>
 
-    <section>
-      <h2>Latest Posts</h2>
-      <p>Coming soon...</p>
-    </section>
-  </main>
+  <section id="donate">
+    <h2>Donate</h2>
+    <!-- PayPal Hosted Button -->
+    <div id="paypal-container-3PGF68NU6D5FJ"></div>
+    <script src="https://www.paypal.com/sdk/js?components=hosted-buttons"></script>
+    <script>
+      paypal.HostedButtons({
+        hostedButtonId: "3PGF68NU6D5FJ"
+      }).render("#paypal-container-3PGF68NU6D5FJ");
+    </script>
+  </section>
 
-  <footer>
-    <p>© 2025 My Website | All Rights Reserved</p>
-  </footer>
+  <section id="posts">
+    <h2>Latest Posts</h2>
+    <p>Coming soon...</p>
+  </section>
+</main>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=BAAK3c_QtF-lf18Guwf2yo59ECMJJELe40_Wcwsgvh0AoffxX2QVVXi5ZlM34vFPGseSGzx6e8Kcs-qQZw&currency=USD"></script>
+<footer>
+  <p>© 2025 My Website | All Rights Reserved</p>
+</footer>
 
-  <!-- PayPal Button Initialization -->
-  <script>
-    window.onload = function() {
-      paypal.Buttons({
-        style: {
-          shape: 'rect',
-          color: 'gold',
-          layout: 'vertical',
-          label: 'paypal'
-        },
-        createOrder: function(data, actions) {
-          var amount = prompt("Enter the amount you want to donate (USD):");
-          if (!amount || isNaN(amount) || Number(amount) <= 0) {
-            alert("Invalid amount. Please enter a positive number.");
-            return;
-          }
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: amount },
-              description: "Support for my website"
-            }]
-          });
-        },
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            alert('Thank you, ' + details.payer.name.given_name + '! Your payment has been received.');
-          });
-        }
-      }).render('#paypal-button-container');
-    };
-  </script>
 </body>
 </html>
